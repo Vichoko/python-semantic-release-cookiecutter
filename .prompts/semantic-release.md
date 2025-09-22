@@ -121,3 +121,66 @@
 * If tags are missing, fetch them; if history is shallow, fail with a clear error.
 * If `pyproject.toml` is absent or lacks a `version` field, fail with a clear error.
 * If the commit message contains `[skip ci]`, **do not** attempt a release.
+
+## Pr title check
+
+```
+name: PR Title Check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+permissions:
+  pull-requests: read
+  contents: read
+
+jobs:
+  check-pr-title:
+    name: Check PR Title Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR Title
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Configure conventional commit types
+          types: |
+            feat
+            fix
+            docs
+            style
+            refactor
+            perf
+            test
+            build
+            ci
+            chore
+            revert
+          # Require scope to be in parentheses (optional)
+          requireScope: false
+          # Allow custom scopes
+          scopes: |
+            api
+            ui
+            db
+            auth
+            workflow
+            deps
+            config
+            security
+          # Custom subject pattern (optional)
+          subjectPattern: ^(?![A-Z]).+$
+          subjectPatternError: |
+            The subject "{subject}" found in the pull request title "{title}"
+            didn't match the configured pattern. Please ensure that the subject
+            doesn't start with an uppercase character.
+          # Ignore merge commits
+          ignoreLabels: |
+            ignore-semantic-pull-request
+          # Custom error message
+          headerPattern: '^(\w*)(?:\(([^)]*)\))?: (.+)$'
+          headerPatternCorrespondence: type,scope,subject
+
+```
