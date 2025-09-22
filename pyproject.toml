@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "propertea"
-version = "0.1.0"
+version = "1.0.0"
 description = "ProperTea is a platform that models housing prices across time and space to detect underpriced opportunities and overpriced risks with transparency and data-driven insights."
 authors = ["Vichoko <your-email@example.com>"]
 readme = "README.md"
