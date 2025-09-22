@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "propertea"
+version = "0.1.0"
+description = "ProperTea is a platform that models housing prices across time and space to detect underpriced opportunities and overpriced risks with transparency and data-driven insights."
+authors = ["Vichoko <your-email@example.com>"]
+readme = "README.md"
+packages = [{include = "propertea"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+black = "^23.0"
+flake8 = "^6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
