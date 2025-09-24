@@ -1,0 +1,67 @@
+{% if cookiecutter.include_github_actions == "yes" -%}
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        # Use a PAT that can bypass branch protection rules
+        token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'lts/*'
+
+    # Create package.json for semantic-release dependencies
+    - name: Create package.json for semantic-release
+      run: |
+        echo '{
+          "name": "semantic-release-deps",
+          "private": true,
+          "dependencies": {
+            "semantic-release": "^21",
+            "@semantic-release/changelog": "^6",
+            "@semantic-release/git": "^10",
+            "@semantic-release/github": "^9",
+            "@semantic-release/exec": "^6",
+            "conventional-changelog-conventionalcommits": "^7"
+          }
+        }' > package.json
+
+    # Cache semantic-release node_modules directly
+    - name: Cache semantic-release dependencies
+      id: cache-semantic-release
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: semantic-release-${{ runner.os }}-${{ hashFiles('package.json') }}
+        restore-keys: |
+          semantic-release-${{ runner.os }}-
+
+    - name: Install semantic-release and plugins
+      if: steps.cache-semantic-release.outputs.cache-hit != 'true'
+      run: npm install
+
+    - name: Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+      run: npx semantic-release
+{% endif %}
