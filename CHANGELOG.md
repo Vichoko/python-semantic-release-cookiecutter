@@ -1,3 +1,12 @@
+# 1.0.0 (2025-09-24)
+
+
+### Features
+
+* add semantic release configuration file ([#2](https://github.com/Vichoko/python-semantic-release-cookiecutter/issues/2)) ([1977efc](https://github.com/Vichoko/python-semantic-release-cookiecutter/commit/1977efcdf625672664564294e395ea24731b4103))
+* implement semantic release workflow ([#1](https://github.com/Vichoko/python-semantic-release-cookiecutter/issues/1)) ([680854d](https://github.com/Vichoko/python-semantic-release-cookiecutter/commit/680854df46d38b4377f3abd3eabd9f2b8972f914))
+* transform ProperTea project into cookiecutter template ([7c8d951](https://github.com/Vichoko/python-semantic-release-cookiecutter/commit/7c8d95126d819bacbbf0010988ac99b4cef6b6c2))
+
 # Changelog
 
 All notable changes to this cookiecutter template will be documented in this file.
