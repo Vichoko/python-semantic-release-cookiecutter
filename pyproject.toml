@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "python-semantic-release-cookiecutter"
-version = "1.0.0"
+version = "1.0.1"
 description = "A cookiecutter template for creating Python projects with automated semantic release capabilities using GitHub Actions and Poetry."
 authors = ["Vichoko <your-email@example.com>"]
 readme = "README.md"

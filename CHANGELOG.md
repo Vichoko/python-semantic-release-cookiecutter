@@ -1,3 +1,5 @@
+## [1.0.1](https://github.com/Vichoko/python-semantic-release-cookiecutter/compare/v1.0.0...v1.0.1) (2025-10-19)
+
 # Changelog
 
 All notable changes to this cookiecutter template will be documented in this file.
